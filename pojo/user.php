@@ -28,7 +28,7 @@ class User{
         return $this->email;
     }
 
-    function set_roles($roles) {    
+    function set_roles($roles) {
         $this->roles = $roles;
     }
 

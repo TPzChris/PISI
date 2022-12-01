@@ -140,11 +140,31 @@ if(count($cart) == 0){
       <div class="parent col-sm-10">
         <h2>Date de facturare</h2>
         <hr>
+        <?php 
+        require './../pojo/user.php';
+        require './../php/gateway/UserGateway.php';
+        $userGateway = new UserGateway(); 
+        $user = $userGateway->getUserById($_SESSION['idUser']);
+        ?>
         <div class="bottom-div">
-          <h3>Producător: </h3>
-          <h3>Preț:  RON</h3> 
-          <h3>Stoc: </h3>
-          <h3>Data apariției: </h3>
+          <form action="./../php/orderPHP.php" method="post">
+            <div class="form-group">
+              <label for="nume" class="col-form-label">Nume:</label>
+              <input type="text" class="form-control" name="nume" id="nume">
+              <label for="prenume" class="col-form-label">Prenume:</label>
+              <input type="text" class="form-control" name="prenume" id="prenume">
+              <label for="email" class="col-form-label">Email:</label>
+              <input type="text" class="form-control" name="email" id="email" value="<?php echo $user->get_email(); ?>">
+              <label for="adresa" class="col-form-label">Adresa:</label>
+              <input type="text" class="form-control" name="adresa" id="adresa">
+              <label for="nrTel" class="col-form-label">Telefon:</label>
+              <input type="tel" class="form-control" name="nrTel" id="nrTel">
+              <input type="hidden" name="idUser" id="idUser" value="<?php echo $SESSION['idUser'] ?>">
+              <br>
+              <button type="submit" name="order" class="btn btn-primary">Plaseaza comanda</button>
+              <br>
+            </div>
+          </form>
           <br>
         </div>
       </div>
