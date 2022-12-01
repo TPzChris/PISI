@@ -39,14 +39,15 @@ $page = "";
 $row = null;
 if(isset($_GET['prod']))
 {
-    $query="select p.*, cant from prod p, cart c where c.id_prod = p.id_prod and p.denumire = '{$_GET['prod']}' and hidden <> 1";
+    $query="select p.*, 
+            (select ifnull(c.cant, 0) from cart c where c.id_prod = p.id_prod and c.id_user = {$_SESSION['idUser']} and c.id_order is null) as cant
+            from prod p where p.id_prod = {$_GET['prod']} and p.hidden <> 1 ";
 
     $result=mysqli_query($con,$query);
 
     $row = mysqli_fetch_assoc($result);
-
+    
 }
-
 ?>
 
 
@@ -96,7 +97,7 @@ if(isset($_GET['prod']))
   <div class="parent">
     <hr>
     <div class="left-div">
-      <img class="card-img-top my-image" src="data:image/<?php echo $row['imagine_content_type']; ?>;base64,<?php echo base64_encode($row['imagine']) ?>" alt="Card image cap">
+      <img class="card-img-top my-image" src="data:image/<?php echo $row['imagine_content_type']; ?>;base64,<?php echo base64_encode($row['imagine']) ?>" alt="Card image cap" style="height: 30rem; width: auto">
     </div>
     <div class="right-div">
       <h3>Producător: <?php echo $row['producator']; ?></h3>
@@ -126,7 +127,7 @@ if(isset($_GET['prod']))
                                         <i class="fa fa-cart-plus" aria-hidden="true" style="color: white"></i>
                                     </button>
                                 </div>
-                                <input type="number" name="cant" class="col-sm-10 form-control-sm" value="<?php echo ($row['cant'] != null) ? $row['cant'] : 0 ?>"/>
+                                <input type="number" name="cant" min="0" class="col-sm-10 form-control-sm" value="<?php echo ($row['cant'] != null) ? $row['cant'] : 0 ?>"/>
                             </div>
                         </form>
                     </div> 
@@ -150,6 +151,7 @@ if(isset($_GET['prod']))
             <?php } ?>
       <h2>Descriere: <?php echo $row['descriere']; ?></h2>
     </div>
+    
   </div>
 
   <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

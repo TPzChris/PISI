@@ -10,7 +10,7 @@ $page = "";
 session_start();
 if(isset($_GET['prods']) && $_GET['prods'] == 'display')
 {
-    $query="select denumire from prod where hidden <> 1";
+    $query="select id_prod, denumire from prod where hidden <> 1";
     
     $result=mysqli_query($con,$query);
 
@@ -18,7 +18,7 @@ if(isset($_GET['prods']) && $_GET['prods'] == 'display')
 
     while($row = mysqli_fetch_assoc($result))
     {
-        array_push($res, $row['denumire']);
+        array_push($res, $row);
     }
 
     echo json_encode($res);
