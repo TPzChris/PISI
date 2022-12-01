@@ -189,7 +189,7 @@ if($count['count'] == 0){
         <?php foreach($prods as $prod){ 
             //CART
 
-            $query="select * from cart where id_user = {$_SESSION['idUser']} and id_prod = {$prod['id_prod']}";
+            $query="select * from cart where id_user = {$_SESSION['idUser']} and id_prod = {$prod['id_prod']} and id_order is null";
 
             $result=mysqli_query($con,$query);
             $cart = mysqli_fetch_assoc($result);
@@ -224,7 +224,7 @@ if($count['count'] == 0){
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm">
-                                    <a href="./../pages/product.php?prod=<?php echo $prod['denumire']; ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+                                    <a href="./../pages/product.php?prod=<?php echo $prod['id_prod']; ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                                 </div>    
                                 <div class="col-sm">
                                     <form method="post" action="./../php/favPHP.php">

@@ -31,12 +31,12 @@ if(isset($_POST['fav']))
     mysqli_query($con, $query1);
     
 }
-
-if($vals[1] == '_'){
-    header("Location: ./../pages/product.php?prod={$vals[2]}");
-}else{
-    header("Location: ./../pages/categ.php?categ={$vals[1]}");
-}
+header('Location: ' . $_SERVER['HTTP_REFERER']);
+// if($vals[1] == '_'){
+//     header("Location: ./../pages/product.php?prod={$vals[2]}");
+// }else{
+//     header("Location: ./../pages/categ.php?categ={$vals[1]}");
+// }
 
 
 

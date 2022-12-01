@@ -11,10 +11,11 @@ let resp = (el) => {
     xmlhttp.onreadystatechange=function() {
         if (this.status == 200 && this.responseText) {
             prods = JSON.parse(this.responseText);
+            console.log(prods.map(p => p.id_prod));
             if(prods)
-            $("#tags").autocomplete({
-                source: prods,
-                select: (event, ui) => window.location.href = "./../pages/product.php?prod=" + ui.item.value
+            $(el).autocomplete({
+                source: prods.map(p => p.denumire),
+                select: (event, ui) => window.location.href = "./../pages/product.php?prod=" + prods.find(p => p.denumire === ui.item.value).id_prod
             });
         }
     }
