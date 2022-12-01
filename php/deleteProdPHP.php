@@ -12,12 +12,12 @@ if(isset($_POST['submitDelete']) || isset($_POST['submitDeleteFromProdPage']))
 {
 
     if(isset($_POST['submitDeleteFromProdPage'])){
-        $query="select c.den from categ c where c.id_categ = (select categ_id from prod where id_prod = '{$_POST['deleteProdId']}')";
+        $query="select c.den from categ c where c.id_categ = (select categ_id from prod where id_prod = '{$_POST['deleteProdId']}' and hidden <> 1)";
         $result = mysqli_query($con, $query);
         $row = mysqli_fetch_assoc($result);
     }
 
-    $query="delete from prod
+    $query="update prod set hidden = 1
     where id_prod = '{$_POST['deleteProdId']}'";
 
     if(!mysqli_query($con, $query)){

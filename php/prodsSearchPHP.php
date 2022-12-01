@@ -10,7 +10,7 @@ $page = "";
 session_start();
 if(isset($_GET['prods']) && $_GET['prods'] == 'display')
 {
-    $query="select denumire from prod";
+    $query="select denumire from prod where hidden <> 1";
     
     $result=mysqli_query($con,$query);
 

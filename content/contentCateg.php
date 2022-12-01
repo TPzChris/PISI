@@ -42,7 +42,8 @@ $page = "";
 if(isset($_GET['categ']))
 {
     $query="select p.* from prod p
-    where p.categ_id = (select id_categ from categ where den = '{$_GET['categ']}' limit 1)";
+    where p.categ_id = (select id_categ from categ where den = '{$_GET['categ']}' limit 1)
+    and hidden <> 1";
     
     if(isset($_POST['order'])){
         $query .= " order by p.denumire {$_POST['order']}";
@@ -234,16 +235,17 @@ if($count['count'] == 0){
                                 </div>
                                 <?php if(isset($_SESSION['roles']) && count($_SESSION['roles']) > 0){ ?>
                                 <div class="col-sm">
-                                    <div class="input-group col-sm-10">
-                                        <div class="input-group-prepend">
-                                            <form method="post" action="./../php/favPHP.php">
-                                                <button type="submit" name="fav" class="btn btn-info" value="<?php echo $prod['id_prod'].",".$_GET['categ']; ?>">
-                                                <i class="fa fa-cart-plus" aria-hidden="true" style="color: white"></i>
+                                    <form method="post" action="./../php/cartPHP.php">
+                                        <div class="input-group col-sm-10">
+                                            <div class="input-group-prepend">
+                                                <input type="hidden" name="idProd" value="<?php echo $prod['id_prod']; ?>"/>
+                                                <button type="submit" name="cart" class="btn btn-info">
+                                                    <i class="fa fa-cart-plus" aria-hidden="true" style="color: white"></i>
                                                 </button>
-                                            </form>
+                                            </div>
+                                            <input type="number" name="cant" class="col-sm-10 form-control-sm" value="<?php echo ($cart != null) ? $cart['cant'] : 0 ?>"/>
                                         </div>
-                                        <input type="number" class="col-sm-10 form-control-sm" value="<?php echo ($cart != null) ? $cart['cant'] : 0 ?>"/>
-                                    </div>
+                                    </form>
                                 </div> 
                                 <?php } ?> 
                             </div> 

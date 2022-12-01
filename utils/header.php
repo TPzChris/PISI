@@ -31,11 +31,20 @@
             <a href="./../php/logoutPHP.php">Logout</a>
         </div>
     </div> 
+
+    <?php
+    
+    require './../php/gateway/CartGateway.php';
+    
+    $cartGateway = new CartGateway();
+    $cartNumber = $cartGateway->getCartNumber($_SESSION['idUser']);
+    ?>
+
     
     <a id="shopBtn" class="fa-layers fa-fw"
         href="./../pages/cart.php">
         <i class="fas fa-cart-shopping" style="color:white; font-size: 24px"></i>
-        <span class="fa-layers-counter">1,419</span>
+        <span class="fa-layers-counter"><?php echo $cartNumber; ?></span>
     </a>
     <?php } ?>
     <?php if(!isset($_SESSION['idUser'])){?>

@@ -39,7 +39,7 @@ $page = "";
 $row = null;
 if(isset($_GET['prod']))
 {
-    $query="select p.* from prod p where p.denumire = '{$_GET['prod']}'";
+    $query="select p.*, cant from prod p, cart c where c.id_prod = p.id_prod and p.denumire = '{$_GET['prod']}' and hidden <> 1";
 
     $result=mysqli_query($con,$query);
 
@@ -105,22 +105,49 @@ if(isset($_GET['prod']))
       <h3>Data apariției: <?php echo $row['data_aparitiei']; ?></h3>
     </div>
     <div class="bottom-div">
-      <hr>
-      <form method="post" action="./../php/favPHP.php">
-          <button type="submit" name="fav" class="btn btn-<?php echo $likedStatus; ?>" <?php echo $disabled; ?> value="<?php echo $row['id_prod'].",_,".$row['denumire']; ?>">
-              <i class="fa fa-heart" aria-hidden="true"></i>
-          </button>
-      </form>
-      <?php if(isset($_SESSION['roles']) && in_array("ROLE_ADMIN", $_SESSION['roles'])){?>
-      <button type="submit" name="delete" class="btn btn-danger" value="<?php echo $prod['id_prod']; ?>" data-toggle="modal" data-target="#deleteModal">
-          <i class="fa fa-x" aria-hidden="true"></i>
-      </button>
-      <br>
-
-      <button type="submit" name="update" class="btn btn-primary" value="<?php echo $prod['id_prod']; ?>" data-toggle="modal" data-target="#updateModal">
-          <i class="fa fa-refresh" aria-hidden="true"></i>
-      </button>
-      <?php } ?>
+        <hr>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <form method="post" action="./../php/favPHP.php">
+                        <button type="submit" name="fav" class="btn btn-<?php echo $likedStatus; ?>" <?php echo $disabled; ?> value="<?php echo $row['id_prod'].",_,".$row['denumire']; ?>">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-sm-2">
+                    <?php if(isset($_SESSION['roles']) && count($_SESSION['roles']) > 0){ ?>
+                    <div class="col-sm">
+                        <form method="post" action="./../php/cartPHP.php">
+                            <div class="input-group col-sm-10">
+                                <div class="input-group-prepend">
+                                    <input type="hidden" name="idProd" value="<?php echo $row['id_prod']; ?>"/>
+                                    <button type="submit" name="cart" class="btn btn-info">
+                                        <i class="fa fa-cart-plus" aria-hidden="true" style="color: white"></i>
+                                    </button>
+                                </div>
+                                <input type="number" name="cant" class="col-sm-10 form-control-sm" value="<?php echo ($row['cant'] != null) ? $row['cant'] : 0 ?>"/>
+                            </div>
+                        </form>
+                    </div> 
+                    <?php } ?> 
+                </div>
+            </div>
+            <br>
+            <?php if(isset($_SESSION['roles']) && in_array("ROLE_ADMIN", $_SESSION['roles'])){?>
+            <div class="row">
+                <div class="col-sm-2">    
+                    <button type="submit" name="delete" class="btn btn-danger" value="<?php echo $prod['id_prod']; ?>" data-toggle="modal" data-target="#deleteModal">
+                        <i class="fa fa-x" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="col-sm-2">  
+                    <button type="submit" name="update" class="btn btn-primary" value="<?php echo $prod['id_prod']; ?>" data-toggle="modal" data-target="#updateModal">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            <?php } ?>
       <h2>Descriere: <?php echo $row['descriere']; ?></h2>
     </div>
   </div>
