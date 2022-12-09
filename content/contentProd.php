@@ -127,7 +127,7 @@ if(isset($_GET['prod']))
                                         <i class="fa fa-cart-plus" aria-hidden="true" style="color: white"></i>
                                     </button>
                                 </div>
-                                <input type="number" name="cant" min="0" class="col-sm-10 form-control-sm" value="<?php echo ($row['cant'] != null) ? $row['cant'] : 0 ?>"/>
+                                <input type="number" name="cant" min="0" max="<?php echo $row['stoc']; ?>" class="col-sm-10 form-control-sm" value="<?php echo ($row['cant'] != null) ? $row['cant'] : 0 ?>"/>
                             </div>
                         </form>
                     </div> 
