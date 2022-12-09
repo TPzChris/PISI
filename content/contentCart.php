@@ -100,7 +100,7 @@ if(count($cart) == 0){
                                         <i class="fa fa-cart-plus" aria-hidden="true" style="color: white"></i>
                                     </button>
                                 </div>
-                                <input type="number" name="cant" min="0" class="col-sm-10 form-control-sm" value="<?php echo ($cartProduct['cant'] != null) ? $cartProduct['cant'] : 0 ?>"/>
+                                <input type="number" name="cant" min="0" max="<?php echo $cartProduct['stoc']; ?>" class="col-sm-10 form-control-sm" value="<?php echo ($cartProduct['cant'] != null) ? $cartProduct['cant'] : 0 ?>"/>
                             </div>
                         </form>
                     </div> 
@@ -122,13 +122,14 @@ if(count($cart) == 0){
       $tva = $keyValueGateway->getValueByKey("tva");
       $transport = $keyValueGateway->getValueByKey("transport");
       $cartPrice = $cartGateway->getCartPrice($_SESSION['idUser']);
+      $finalPrice = (float)$cartPrice + (float)$transport;
       ?>
       <div class="col-sm-4">
         <div class="parent">
           <h3>TVA: <?php echo $tva; ?> %</h3>
           <h3>Transport: <?php echo $transport; ?> RON</h3> 
           <hr>
-          <h1>Pret total: <?php echo (float)$cartPrice + (float)$transport; ?> RON</h1>
+          <h1>Pret total: <?php echo $finalPrice; ?> RON</h1>
           <br>
         </div>
       </div>
@@ -159,7 +160,8 @@ if(count($cart) == 0){
               <input type="text" class="form-control" name="adresa" id="adresa">
               <label for="nrTel" class="col-form-label">Telefon:</label>
               <input type="tel" class="form-control" name="nrTel" id="nrTel">
-              <input type="hidden" name="idUser" id="idUser" value="<?php echo $SESSION['idUser'] ?>">
+              <input type="hidden" name="idUser" id="idUser" value="<?php echo $_SESSION['idUser'] ?>">
+              <input type="hidden" name="finalPrice" id="finalPrice" value="<?php echo $finalPrice ?>">
               <br>
               <button type="submit" name="order" class="btn btn-primary">Plaseaza comanda</button>
               <br>

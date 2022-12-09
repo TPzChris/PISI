@@ -1,7 +1,9 @@
 
 <?php
+
     class CartGateway{
 
+        
         public function getCartNumber($id){
             $con=mysqli_connect('localhost', 'root', '', 'pisi');
 
@@ -78,6 +80,49 @@
             mysqli_close($con);
 
             return $cart['sum'];
+        }
+
+        public function updateCartOrder($idOrder, $idUser){
+            $con=mysqli_connect('localhost','root','','pisi');
+
+            if(!$con){
+                die(' Please Check Your Connection');
+            }
+
+            $operationQuery = "update cart set id_order = {$idOrder} where id_user = {$idUser} and id_order is null";
+
+            if(!mysqli_query($con, $operationQuery)){
+                $_SESSION['error'] = "Error description: " . mysqli_error($con);
+                echo $_SESSION['error'];
+            }
+
+            mysqli_close($con);
+        }
+
+        public function getCartElementsOfOrder($idOrder){
+            $con=mysqli_connect('localhost','root','','pisi');
+
+            if(!$con){
+                die(' Please Check Your Connection');
+            }
+
+
+            $query = "select c.* from cart c where c.id_order = {$idOrder}";
+            $result = mysqli_query($con, $query);
+            $orderContent = array();
+            while($row = mysqli_fetch_assoc($result)){
+                $cart = new Cart();
+                $cart->set_idCart($row['id_cart']);
+                $cart->set_idUser($row['id_user']);
+                $cart->set_idProd($row['id_prod']);
+                $cart->set_cant($row['cant']);
+                $cart->set_idOrder($row['id_order']);
+                array_push($orderContent, $cart);
+            }
+
+            mysqli_close($con);
+
+            return $orderContent;
         }
 
     }
