@@ -186,31 +186,33 @@ if($count['count'] == 0){
 
     <div class="main-div">
 
-        <?php foreach($prods as $prod){ 
-            //CART
-
-            $query="select * from cart where id_user = {$_SESSION['idUser']} and id_prod = {$prod['id_prod']} and id_order is null";
-
-            $result=mysqli_query($con,$query);
-            $cart = mysqli_fetch_assoc($result);
-
-            //WISHLIST
+        <?php 
+        
+        foreach($prods as $prod){ 
+            $disabledFav = "disabled"; 
             $likedStatus = "danger";
-            if(!(isset($_SESSION['roles']) && count($_SESSION['roles']) > 0)){
-                $disabledFav = "disabled"; 
-            }
-            else{
-                $query="select * from user_prod where id_user = {$_SESSION['idUser']} and id_prod = {$prod['id_prod']}";
+            if(isset($_SESSION['idUser'])){
+                //CART
+                $query="select * from cart where id_user = {$_SESSION['idUser']} and id_prod = {$prod['id_prod']} and id_order is null";
 
                 $result=mysqli_query($con,$query);
-                $row = mysqli_fetch_assoc($result);
-                if(!$row){
-                    $likedStatus = "danger"; 
+                $cart = mysqli_fetch_assoc($result);
+
+                //WISHLIST
+                $likedStatus = "danger";
+                if(isset($_SESSION['roles']) && count($_SESSION['roles']) > 0){
+                    $query="select * from user_prod where id_user = {$_SESSION['idUser']} and id_prod = {$prod['id_prod']}";
+
+                    $result=mysqli_query($con,$query);
+                    $row = mysqli_fetch_assoc($result);
+                    if(!$row){
+                        $likedStatus = "danger"; 
+                    }
+                    else{
+                        $likedStatus = "secondary";
+                    }
+                    $disabledFav = "";
                 }
-                else{
-                    $likedStatus = "secondary";
-                }
-                $disabledFav = "";
             }
         ?>
         <div class="row">
@@ -225,7 +227,8 @@ if($count['count'] == 0){
                             <div class="row">
                                 <div class="col-sm">
                                     <a href="./../pages/product.php?prod=<?php echo $prod['id_prod']; ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
-                                </div>    
+                                </div> 
+                                
                                 <div class="col-sm">
                                     <form method="post" action="./../php/favPHP.php">
                                         <button type="submit" name="fav" class="btn btn-<?php echo $likedStatus; ?>" <?php echo $disabledFav; ?> value="<?php echo $prod['id_prod'].",".$_GET['categ']; ?>">
@@ -233,6 +236,7 @@ if($count['count'] == 0){
                                         </button>
                                     </form>
                                 </div>
+                                
                                 <?php if(isset($_SESSION['roles']) && count($_SESSION['roles']) > 0){ ?>
                                 <div class="col-sm">
                                     <form method="post" action="./../php/cartPHP.php">
