@@ -44,12 +44,12 @@ if(isset($_GET['prod']))
         $extraQuery = ", (select ifnull(c.cant, 0) from cart c where c.id_prod = p.id_prod and c.id_user = {$_SESSION['idUser']} and c.id_order is null) as cant";
     }
     else{
-        $extraQuery = "";
+        $extraQuery = " ";
     }
 
     $query="select p.*".
             $extraQuery
-            ."from prod p where p.id_prod = {$_GET['prod']} and p.hidden <> 1 ";
+            ." from prod p where p.id_prod = {$_GET['prod']} and p.hidden <> 1 ";
 
     $result=mysqli_query($con,$query);
 
