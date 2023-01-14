@@ -97,6 +97,10 @@ if(isset($_SESSION['error'])){
                 <input type="hidden" name="userId" value="<?php echo $user->get_id(); ?>">
                 <button type="button submit" name="submitRoleChange" class="btn btn-<?php if(!in_array("ROLE_ADMIN", $user->get_roles())){ ?>outline-<?php } ?>primary" value="admin">Admin</button>
               </form>
+              <form method="post" action="./../php/changeRolePHP.php" style="display: inline-block">
+                <input type="hidden" name="userId" value="<?php echo $user->get_id(); ?>">
+                <button type="button submit" name="submitRoleChange" class="btn btn-<?php if(!in_array("ROLE_SALES", $user->get_roles())){ ?>outline-<?php } ?>success" value="sales">Sales</button>
+              </form>
             </div>
           </div>
         

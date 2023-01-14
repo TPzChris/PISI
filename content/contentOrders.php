@@ -12,32 +12,60 @@
 <body style="background-color: #717171;">
 
 <?php
-if(isset($_SESSION['error'])){
-?>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <h3><?php echo $_SESSION['error']; ?></h3>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-  </div> 
-<?php     
-    unset($_SESSION['error']);
+require './../php/gateway/UserGateway.php';
+require './../pojo/user.php';
+$userGateway = new UserGateway();
+
+if(!($_SESSION['idUser'] == $_GET['id'] || isset($_SESSION['roles']) && in_array("ROLE_SALES", $_SESSION['roles']))){
+  $_SESSION['error'] = "Acces neautorizat";
+}
+
+if(!$userGateway->userExists($_GET['id'])){
+  $_SESSION['error'] = "Utilizator inexistent";
 }
 ?>
+
+<?php
+if(isset($_SESSION['error'])){
+?>
+  <div class="alert alert-danger alert fade show" role="alert">
+      <h3><?php echo $_SESSION['error']; ?></h3>
+  </div> 
+<?php     
+}
+?>
+
 
 <?php 
 require_once(__DIR__.'/../php/facade/OrderFacade.php');
 require_once(__DIR__.'/../php/gateway/ProdGateway.php');
 $orderFacade = new OrderFacade();
 $prodGateway = new ProdGateway();
-$orders = $orderFacade->getOrders($_SESSION['idUser']);
+$orders = $orderFacade->getOrders($_GET['id']);
 ?>
 
-
+<?php
+if(isset($_SESSION['error'])){
+?>
+  <div class="main-div">
+    <div>
+      <span style="color: red">
+        <i class="fa-solid fa-7x fa-exclamation-triangle"></i>
+      </span>
+      <h1><?php echo $_SESSION['error']; ?></h1>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  </div>
+<?php
+  unset($_SESSION['error']);
+} else{ ?>
 <div class="container" style="min-height: 15rem;">
   <div class="row">
     <div class="parent col-sm-10" style="min-height: 15rem;">
-      <h2>Comenzi</h2>
+      <?php 
+      $user = $userGateway->getUserById($_GET['id']);
+      ?>
+      <h2>Comenzi <?php echo $user->get_name(); ?></h2>
 
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#ongoing">Comenzi Active</a></li>
@@ -64,6 +92,13 @@ $orders = $orderFacade->getOrders($_SESSION['idUser']);
                   <div class="col">
                     <form method="post" action="./../php/cancelOrderPHP.php">
                       <input type="hidden" name="idOrder" value="<?php echo $activeOrder->get_idOrder(); ?>" >
+                      <?php
+                      if(!isset($_SESSION['roles']) || isset($_SESSION['roles']) && in_array("ROLE_SALES", $_SESSION['roles'])){
+                      ?>
+                      <button class="btn btn-success" type="submit" name="finalizeOrder">Finalizeaza comanda</button>
+                      <?php  
+                      }
+                      ?>
                       <button class="btn btn-danger" type="submit" name="cancelOrder">Anuleaza comanda</button>
                     </form>
                   </div>
@@ -192,6 +227,8 @@ $orders = $orderFacade->getOrders($_SESSION['idUser']);
     </div>
   </div>
 </div>
+<?php } ?>
+<br><br>
 <br><br>
 <br><br>
 <br><br>
