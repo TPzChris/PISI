@@ -35,7 +35,7 @@
         </button>
         <div class="dropdown-content">
             <a href="./../pages/account.php?id=<?php echo $_SESSION['idUser']; ?>">Contul meu</a>
-            <a href="./../pages/orders.php">Comenzile mele</a>
+            <a href="./../pages/orders.php?id=<?php echo $_SESSION['idUser']; ?>">Comenzile mele</a>
             <a href="./../php/logoutPHP.php">Logout</a>
         </div>
     </div> 
@@ -63,6 +63,9 @@
     <?php } ?>
     <?php if(isset($_SESSION['roles']) && in_array("ROLE_ADMIN", $_SESSION['roles'])){?>
     <a class="a-header" href="./../pages/admin.php">Administrare conturi</a>
+    <?php } ?>
+    <?php if(isset($_SESSION['roles']) && in_array("ROLE_SALES", $_SESSION['roles'])){?>
+    <a class="a-header" href="./../pages/adminOrders.php">Administrare comenzi</a>
     <?php } ?>
     
 </div>

@@ -45,6 +45,18 @@ $user->set_roles($roles);
 <body style="background-color: #717171;">
 
 <?php
+require './../php/gateway/UserGateway.php';
+$userGateway = new UserGateway();
+if(!($_SESSION['idUser'] == $_GET['id'] || isset($_SESSION['roles']) && in_array("ROLE_SALES", $_SESSION['roles']))){
+  $_SESSION['error'] = "Acces neautorizat";
+}
+
+if(!$userGateway->userExists($_GET['id'])){
+  $_SESSION['error'] = "Utilizator inexistent";
+}
+?>
+
+<?php
 if(isset($_SESSION['error'])){
 ?>
 <div class="alert alert-danger alert-dismissible fade show" role="alert">

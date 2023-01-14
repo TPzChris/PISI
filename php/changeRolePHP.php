@@ -1,5 +1,6 @@
 <?php
 require 'alert.php';
+require './gateway/UserGateway.php';
 $con=mysqli_connect('localhost','root','','pisi');
 
 if(!$con){
@@ -12,12 +13,16 @@ if(isset($_POST['submitRoleChange']))
 {
     $role = "";
     switch($_POST['submitRoleChange']){
-        case "admin": $role = "ROLE_ADMIN";
+        case "admin": 
+            $role = "ROLE_ADMIN";
+            break;
+        case "sales": 
+            $role = "ROLE_SALES";
+            break;
     }
     echo $role;
 
-    $query="select count(1) as count from user_authority ua, authority a 
-    where ua.id_authority = a.id_authority and ua.user_id = {$_POST['userId']} and a.name = '{$role}'";
+    $query="select count(1) as count from user_authority ua, authority a where ua.id_authority = a.id_authority and ua.user_id = {$_POST['userId']} and a.name = '{$role}'";
 
     echo $query;
 
@@ -38,6 +43,9 @@ if(isset($_POST['submitRoleChange']))
         $_SESSION['error'] = "Error description: " . mysqli_error($con);
         echo $_SESSION['error'];
     }
+
+    $userGateway = new UserGateway();
+    $_SESSION['roles'] = $userGateway->getRoles($_SESSION['idUser']);
 
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }

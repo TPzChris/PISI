@@ -1,5 +1,6 @@
 <?php 
 require 'alert.php';
+require './../php/gateway/UserGateway.php';
 $con=mysqli_connect('localhost','root','','pisi');
 
 if(!$con){
@@ -30,20 +31,10 @@ if(isset($_POST['Login']))
         phpAlert($msg, $page);
     }
 
-    $query="select a.name from user_authority ua, authority a where ua.id_authority = a.id_authority and ua.user_id=".$_SESSION['idUser'];
+    $userGateway = new UserGateway();
 
-    $result=mysqli_query($con,$query);
-
-    $roles = array();
-
-    while($row = mysqli_fetch_assoc($result))
-    {
-        array_push($roles, $row['name']);
-        $flagOK = true;
-    }
-    $_SESSION['roles'] = $roles;
+    $_SESSION['roles'] = $userGateway->getRoles($_SESSION['idUser']);
     
-    mysqli_close($con);
 
     if($flagOK){
         header("location:./../pages/home.php");
