@@ -9,6 +9,7 @@ class Order{
     private $address;
     private $phoneNo;
     private $cost;
+    private $status;
 
     function set_idOrder($idOrder) {
         $this->idOrder = $idOrder;
@@ -57,6 +58,13 @@ class Order{
     }
     function get_cost() {
         return $this->cost;
+    }
+
+    function set_status($status) {
+        $this->status = $status;
+    }
+    function get_status() {
+        return $this->status;
     }
     
 }

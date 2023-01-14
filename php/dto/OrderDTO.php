@@ -10,6 +10,7 @@
         private $phoneNo;
         private $cost;
         private $cartElements = array();
+        private $status;
 
         function set_idOrder($idOrder) {
             $this->idOrder = $idOrder;
@@ -67,6 +68,13 @@
         function get_cartElements() {    
             return $this->cartElements;
         }
+
+        function set_status($status) {
+            $this->status = $status;
+        }
+        function get_status() {
+            return $this->status;
+        }
         
         
         function fromOrderToOrderDTO(Order $order){
@@ -77,19 +85,8 @@
             $this->set_address($order->get_address());
             $this->set_phoneNo($order->get_phoneNo());
             $this->set_cost($order->get_cost());
+            $this->set_status($order->get_status());
         }
-
-        // static function fromOrderDTOToOrder(OrderDTO $orderDTO){
-        //     $this->set_idOrder($orderDTO->get_idOrder());
-        //     $this->set_lastName($orderDTO->get_lastName());
-        //     $this->set_firstName($orderDTO->get_firstName());
-        //     $this->set_email($orderDTO->get_email());
-        //     $this->set_address($orderDTO->get_address());
-        //     $this->set_phoneNo($orderDTO->get_phoneNo());
-        //     $this->set_cost($orderDTO->get_cost());
-
-        //     return $this;
-        // }
 
     }
 
