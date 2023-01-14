@@ -106,7 +106,6 @@
                 die(' Please Check Your Connection');
             }
 
-
             $query = "select c.* from cart c where c.id_order = {$idOrder}";
             $result = mysqli_query($con, $query);
             $orderContent = array();
@@ -117,13 +116,16 @@
                 $cart->set_idProd($row['id_prod']);
                 $cart->set_cant($row['cant']);
                 $cart->set_idOrder($row['id_order']);
-                array_push($orderContent, $cart);
+                $cartDTO = new CartDTO();
+                $cartDTO->fromCartToCartDTO($cart);
+                array_push($orderContent, $cartDTO);
             }
 
             mysqli_close($con);
 
             return $orderContent;
         }
+
 
     }
 ?>

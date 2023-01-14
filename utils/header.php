@@ -35,6 +35,7 @@
         </button>
         <div class="dropdown-content">
             <a href="./../pages/account.php?id=<?php echo $_SESSION['idUser']; ?>">Contul meu</a>
+            <a href="./../pages/orders.php">Comenzile mele</a>
             <a href="./../php/logoutPHP.php">Logout</a>
         </div>
     </div> 
