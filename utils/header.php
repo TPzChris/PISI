@@ -2,12 +2,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
 <script src="./../js/header.js"></script>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ 
   
 <?php
     require_once './../php/dto/OrderDTO.php';
@@ -18,59 +15,85 @@
 
 ?>
 
-
-<div class="navbar-header">
-    <a class="home" href="./../pages/home.php">Home</a>
-
-    <div class="ui-widget" style="float: left; padding-left: 45%">
-        <input id="tags"><i class="fa fa-search" aria-hidden="true" style="color: white;"></i>
+<nav class="navbar navbar-dark bg-dark fixed-top d-flex">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="./../pages/home.php">Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Meniu</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+            <form class="d-flex mt-3" role="search" action="./../php/prodRedirectPHP.php" method="post">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="tags" list="prods" name="tags">
+                <input type="hidden" name="idProd" id="idProd">
+                <datalist id="prods" name="prods">
+                </datalist>
+                <button class="btn btn-success" type="submit" name="searchProd">Cauta</button>
+            </form>
+            </li>
+            <?php
+            
+            $cartGateway = new CartGateway();
+            $cartNumber = $cartGateway->getCartNumber($_SESSION['idUser']);
+            ?>
+            <li class="nav-item">
+                <a id="shopBtn" class="dropdown-item" href="./../pages/cart.php">
+                    <i class="fas fa-cart-shopping" style="color:white; font-size: 24px"></i>
+                    <span class="fa-layers-counter"><?php echo $cartNumber; ?></span>
+                </a>
+            </li>
+            <?php if(!isset($_SESSION['idUser'])){?>
+            <li class="nav-item">
+                <a class="dropdown-item" href="./../pages/login.php">Autentificare</a>
+            </li>
+            <?php } ?>
+            <?php if(isset($_SESSION['roles']) && in_array("ROLE_MARKETING", $_SESSION['roles'])){?>
+            <li class="nav-item">
+                <a class="dropdown-item" href="./../pages/statistics.php">Statistici</a>
+            </li>
+            <?php } ?>
+            <?php if(isset($_SESSION['roles']) && in_array("ROLE_ADMIN", $_SESSION['roles'])){?>
+            <li class="nav-item">
+                <a class="dropdown-item" href="./../pages/admin.php">Administrare conturi</a>
+            </li>
+            <?php } ?>
+            <?php if(isset($_SESSION['roles']) && in_array("ROLE_SALES", $_SESSION['roles'])){?>
+            <li class="nav-item">
+                <a class="dropdown-item" href="./../pages/adminOrders.php">Administrare comenzi</a>
+            </li>
+            <?php } ?>
+            <?php if(isset($_SESSION['roles']) && in_array("ROLE_USER", $_SESSION['roles'])){ ?>
+            <li class="nav-item">
+                <a class="dropdown-item" href="./../pages/account.php?id=<?php echo $_SESSION['idUser']; ?>">Contul meu</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="./../pages/orders.php?id=<?php echo $_SESSION['idUser']; ?>">Comenzile mele</a>
+            </li>
+            <li>
+                <hr class="divider">
+            </li>
+            <li>
+                <a class="dropdown-item" href="./../php/logoutPHP.php">Logout</a>
+            </li>
+            <?php } ?>
+        </ul>
+      </div>
     </div>
-    
-
-    <?php if(isset($_SESSION['roles']) && in_array("ROLE_USER", $_SESSION['roles'])){ ?>
-    <div class="dropdown-header">
-        
-        <button class="dropbtn"><?php echo $_SESSION['user']; ?> 
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-            <a href="./../pages/account.php?id=<?php echo $_SESSION['idUser']; ?>">Contul meu</a>
-            <a href="./../pages/orders.php?id=<?php echo $_SESSION['idUser']; ?>">Comenzile mele</a>
-            <a href="./../php/logoutPHP.php">Logout</a>
-        </div>
-    </div> 
-
-    <?php
-    
-    $cartGateway = new CartGateway();
-    $cartNumber = $cartGateway->getCartNumber($_SESSION['idUser']);
-    ?>
-
-    
-    <a id="shopBtn" class="fa-layers fa-fw"
-        href="./../pages/cart.php">
-        <i class="fas fa-cart-shopping" style="color:white; font-size: 24px"></i>
-        <span class="fa-layers-counter"><?php echo $cartNumber; ?></span>
-    </a>
-    <?php } ?>
-    <?php if(!isset($_SESSION['idUser'])){?>
-    <a class="a-header" href="./../pages/login.php">Autentificare</a>
-    <?php } ?>
-
-
-    <?php if(isset($_SESSION['roles']) && in_array("ROLE_MARKETING", $_SESSION['roles'])){?>
-    <a class="a-header" href="./../pages/statistics.php">Statistici</a>
-    <?php } ?>
-    <?php if(isset($_SESSION['roles']) && in_array("ROLE_ADMIN", $_SESSION['roles'])){?>
-    <a class="a-header" href="./../pages/admin.php">Administrare conturi</a>
-    <?php } ?>
-    <?php if(isset($_SESSION['roles']) && in_array("ROLE_SALES", $_SESSION['roles'])){?>
-    <a class="a-header" href="./../pages/adminOrders.php">Administrare comenzi</a>
-    <?php } ?>
-    
-</div>
+  </div>
+</nav>
 
 <script>
-    resp(document.getElementById("tags"));         
+    resp(document.getElementById("prods")); 
+    $('#tags').on('input', function() {
+        const value = $(this).val();
+        const data_value = $('#prods [value="' + value + '"]').data('value');
+        document.getElementById("idProd").value = data_value;
+    });     
 </script>
 

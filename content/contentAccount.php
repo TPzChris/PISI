@@ -2,8 +2,6 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="./../css/account.css" />
 
 <?php 
@@ -61,7 +59,7 @@ if(isset($_SESSION['error'])){
 ?>
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
     <h3><?php echo $_SESSION['error']; ?></h3>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div> 
@@ -80,19 +78,18 @@ if(isset($_SESSION['error'])){
       <br>
       <div class="main-div">
 
-        <div style="margin-left: 20%;">
+        <div class="parent" style="margin-left: 10%; height: 20rem">
             <h1>E-mail: </h1><h2><?php echo $user->get_email(); ?></h2><br><br><br>
             <h1>Roluri: </h1>
             <button type="button" class="btn btn-warning" style="display: inline-block">User</button>
-            <?php if(isset($_SESSION['roles']) && in_array("ROLE_ADMIN", $_SESSION['roles'])){ ?>
             <form method="post" action="./../php/changeRolePHP.php" style="display: inline-block">
               <input type="hidden" name="userId" value="<?php echo $user->get_id(); ?>">
               <button type="button submit" name="submitRoleChange" class="btn btn-<?php if(!in_array("ROLE_ADMIN", $user->get_roles())){ ?>outline-<?php } ?>primary" value="admin">Admin</button>
             </form>
-            <?php } else { ?>
-              <button type="button" class="btn btn-<?php if(!in_array("ROLE_ADMIN", $user->get_roles())){ ?>outline-<?php } ?>primary" style="display: inline-block">Admin</button>
-            <?php } ?> 
-            
+            <form method="post" action="./../php/changeRolePHP.php" style="display: inline-block">
+              <input type="hidden" name="userId" value="<?php echo $user->get_id(); ?>">
+              <button type="button submit" name="submitRoleChange" class="btn btn-<?php if(!in_array("ROLE_SALES", $user->get_roles())){ ?>outline-<?php } ?>success" value="sales">Sales</button>
+            </form>
         </div>         
       </div>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

@@ -2,8 +2,6 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="./../css/product.css" />
 
 
@@ -146,12 +144,12 @@ if(isset($_GET['prod']))
             <?php if(isset($_SESSION['roles']) && in_array("ROLE_ADMIN", $_SESSION['roles'])){?>
             <div class="row">
                 <div class="col-sm-2">    
-                    <button type="submit" name="delete" class="btn btn-danger" value="<?php echo $prod['id_prod']; ?>" data-toggle="modal" data-target="#deleteModal">
+                    <button type="submit" name="delete" class="btn btn-danger" value="<?php echo $prod['id_prod']; ?>" data-bs-toggle="modal" data-bs-target="#deleteModal">
                         <i class="fa fa-x" aria-hidden="true"></i>
                     </button>
                 </div>
                 <div class="col-sm-2">  
-                    <button type="submit" name="update" class="btn btn-primary" value="<?php echo $prod['id_prod']; ?>" data-toggle="modal" data-target="#updateModal">
+                    <button type="submit" name="update" class="btn btn-primary" value="<?php echo $prod['id_prod']; ?>" data-bs-toggle="modal" data-bs-target="#updateModal">
                         <i class="fa fa-refresh" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -167,7 +165,7 @@ if(isset($_GET['prod']))
           <div class="modal-content">
               <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Modificare produs</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>
               </div>
@@ -195,7 +193,7 @@ if(isset($_GET['prod']))
                       </div>
                   </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Anulează</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anulează</button>
                       <button type="submit button" class="btn btn-primary" name="submitUpdateFromProdPage">Confirmă</button>
                   </div>
               </form>
@@ -207,7 +205,7 @@ if(isset($_GET['prod']))
           <div class="modal-content">
               <div class="modal-header">
                   <h5 class="modal-title">Ștergere produs</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
               </div>
@@ -217,7 +215,7 @@ if(isset($_GET['prod']))
               <div class="modal-footer">
                   <form method="post" action="./../php/deleteProdPHP.php">
                       <input type="hidden" name="deleteProdId" value="<?php echo $row['id_prod']; ?>">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal">Anulare</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anulare</button>
                       <button type="button submit" name="submitDeleteFromProdPage" class="btn btn-danger">Confirm</button>
                   </form>
               </div>
