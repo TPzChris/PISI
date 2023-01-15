@@ -2,9 +2,6 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="./../css/product.css" />
 
 </head>
@@ -68,9 +65,9 @@ if(isset($_SESSION['error'])){
       <h2>Comenzi <?php echo $user->get_name(); ?></h2>
 
       <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#ongoing">Comenzi Active</a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#finalized">Comenzi Finalizate</a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#canceled">Comenzi Anulate</a></li>
+        <li class="nav-item active"><a class="nav-link active" data-bs-toggle="tab" href="#ongoing">Comenzi Active</a></li>
+        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#finalized">Comenzi Finalizate</a></li>
+        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#canceled">Comenzi Anulate</a></li>
       </ul>
 
       <div class="tab-content">
@@ -190,8 +187,16 @@ if(isset($_SESSION['error'])){
             <div class="card-body">
               <h5 class="card-title">Comanda #<?php echo $canceledOrder->get_idOrder(); ?></h5>
               <p class="card-text">Pret final: <?php echo $canceledOrder->get_cost(); ?></p>
-              <h4><span class="badge bg-danger">Anulata</span></h4>
-              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling_<?php echo $canceledOrder->get_idOrder(); ?>" aria-controls="offcanvasScrolling">Produse</button>
+              <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                      <h4><span class="badge bg-danger">Anulata</span></h4>
+                    </div>
+                    <div class="col">
+                      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling_<?php echo $canceledOrder->get_idOrder(); ?>" aria-controls="offcanvasScrolling">Produse</button>
+                    </div>
+                </div> 
+              </div>
               <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling_<?php echo $canceledOrder->get_idOrder(); ?>" aria-labelledby="offcanvasScrollingLabel">
                 <div class="offcanvas-header">
                   <h2 class="offcanvas-title" id="offcanvasScrollingLabel_<?php echo $canceledOrder->get_idOrder(); ?>">Comanda #<?php echo $canceledOrder->get_idOrder(); ?></h2>

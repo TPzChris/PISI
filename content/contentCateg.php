@@ -2,8 +2,6 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="./../css/categ.css" />
@@ -65,7 +63,7 @@ if(isset($_SESSION['error'])){
 ?>
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
     <h3><?php echo $_SESSION['error']; ?></h3>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div> 
@@ -107,7 +105,7 @@ if($count['count'] == 0){
     <div style="margin-left: 20%;">
         <h2><?php echo $_GET['categ']; ?></h2>
         <?php if(isset($_SESSION['roles']) && in_array("ROLE_ADMIN", $_SESSION['roles'])){?>
-        <button type="submit" name="insert" class="btn btn-primary" data-toggle="modal" data-target="#insertModal">
+        <button type="submit" name="insert" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
 
@@ -116,7 +114,7 @@ if($count['count'] == 0){
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Inserare produs</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -143,7 +141,7 @@ if($count['count'] == 0){
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Anulează</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anulează</button>
                             <button type="submit button" class="btn btn-primary" name="submitInsert">Confirmă</button>
                         </div>
                     </form>
@@ -152,7 +150,7 @@ if($count['count'] == 0){
         </div>
 
         <?php if(count($prods) == 0){ ?>
-        <button type="submit" name="delete" class="btn btn-danger" value="<?php echo $_GET['categ']; ?>" data-toggle="modal" data-target="#deleteModalCateg">
+        <button type="submit" name="delete" class="btn btn-danger" value="<?php echo $_GET['categ']; ?>" data-bs-toggle="modal" data-bs-target="#deleteModalCateg">
             <i class="fa fa-x" aria-hidden="true"></i>
         </button>
 
@@ -161,7 +159,7 @@ if($count['count'] == 0){
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Ștergere categorie</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -171,7 +169,7 @@ if($count['count'] == 0){
                     <div class="modal-footer">
                         <form method="post" action="./../php/deleteCategPHP.php">
                             <input type="hidden" name="deleteCateg" value="<?php echo $_GET['categ']; ?>">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Anulare</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anulare</button>
                             <button type="button submit" name="submitDeleteCateg" class="btn btn-danger">Confirm</button>
                         </form>
                     </div>
@@ -260,7 +258,7 @@ if($count['count'] == 0){
                                 <div class="col-sm">
                                 </div>
                                 <div class="col-sm">    
-                                    <button type="submit" name="delete" class="btn btn-danger" value="<?php echo $prod['id_prod']; ?>" data-toggle="modal" data-target="#deleteModal_<?php echo $prod['id_prod']; ?>">
+                                    <button type="submit" name="delete" class="btn btn-danger" value="<?php echo $prod['id_prod']; ?>" data-bs-toggle="modal" data-bs-target="#deleteModal_<?php echo $prod['id_prod']; ?>">
                                         <i class="fa fa-x" aria-hidden="true"></i>
                                     </button>
                                     <div class="modal fade" id="deleteModal_<?php echo $prod['id_prod']; ?>" tabindex="-1" role="dialog">
@@ -268,7 +266,7 @@ if($count['count'] == 0){
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">Ștergere produs</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -278,7 +276,7 @@ if($count['count'] == 0){
                                                 <div class="modal-footer">
                                                     <form method="post" action="./../php/deleteProdPHP.php">
                                                         <input type="hidden" name="deleteProdId" value="<?php echo $prod['id_prod']; ?>">
-                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Anulare</button>
+                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anulare</button>
                                                         <button type="button submit" name="submitDelete" class="btn btn-danger">Confirm</button>
                                                     </form>
                                                 </div>
@@ -289,7 +287,7 @@ if($count['count'] == 0){
                                 <div class="col-sm">
                                 </div>
                                 <div class="col-sm">        
-                                    <button type="submit" name="update" class="btn btn-primary" value="<?php echo $prod['id_prod']; ?>" data-toggle="modal" data-target="#updateModal_<?php echo $prod['id_prod']; ?>">
+                                    <button type="submit" name="update" class="btn btn-primary" value="<?php echo $prod['id_prod']; ?>" data-bs-toggle="modal" data-bs-target="#updateModal_<?php echo $prod['id_prod']; ?>">
                                         <i class="fa fa-refresh" aria-hidden="true"></i>
                                     </button>
                                     <div class="modal fade" id="updateModal_<?php echo $prod['id_prod']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -297,7 +295,7 @@ if($count['count'] == 0){
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Modificare produs</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -325,7 +323,7 @@ if($count['count'] == 0){
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anulează</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anulează</button>
                                                         <button type="submit button" class="btn btn-primary" name="submitUpdate">Confirmă</button>
                                                     </div>
                                                 </form>
