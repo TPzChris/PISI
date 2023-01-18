@@ -3,7 +3,7 @@
     class KeyValueGateway{
 
         public function getValueByKey($key){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');

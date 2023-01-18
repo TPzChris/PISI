@@ -30,7 +30,7 @@ let showImageUpdate = (event, idProd) => {
 
 <?php 
 require './../php/alert.php';
-$con=mysqli_connect('localhost','root','','pisi');
+$con=mysqli_connect('localhost','root','','tia_2_php');
 
 if(!$con){
     die(' Please Check Your Connection');

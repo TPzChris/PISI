@@ -3,7 +3,7 @@
     class UserGateway{
         
         public function getUserById($id){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
@@ -34,7 +34,7 @@
 
         public function getRoles($idUser){
 
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
@@ -58,7 +58,7 @@
         }
 
         public function userExists($idUser){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
@@ -74,7 +74,7 @@
         }
 
         public function getUsers(){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');

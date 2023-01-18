@@ -1,5 +1,5 @@
 <?php
-$con=mysqli_connect('localhost','root','','pisi');
+$con=mysqli_connect('localhost','root','','tia_2_php');
 
 if(!$con){
     die(' Please Check Your Connection');
@@ -25,7 +25,7 @@ while($row = mysqli_fetch_assoc($result))
         <div class="left box">
         <div class="upper">
             <div class="topic">Despre noi</div>
-            <p>Proiect PISI.</p>
+            <p>Proiect Adam-Papadatu Ionut-Cristian.</p>
         </div>
         <div class="lower">
             <div class="topic">Contacteaza-ne</div>

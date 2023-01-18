@@ -3,7 +3,7 @@
     class OrderGateway{
 
         public function insertOrder(OrderDTO $orderDTO){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
@@ -23,7 +23,7 @@
         }
 
         public function findById($idOrder){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
@@ -48,7 +48,7 @@
         }
 
         public function findLatestOrder(){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
@@ -74,7 +74,7 @@
 
 
         public function findOrdersOfUser($idUser){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
@@ -104,7 +104,7 @@
 
 
         public function updateOrderStatus($idOrder, $status){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');

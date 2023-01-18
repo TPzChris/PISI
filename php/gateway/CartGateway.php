@@ -5,7 +5,7 @@
 
         
         public function getCartNumber($id){
-            $con=mysqli_connect('localhost', 'root', '', 'pisi');
+            $con=mysqli_connect('localhost', 'root', '', 'tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
@@ -23,7 +23,7 @@
 
 
         public function updateCart($idUser, $idProd, $cant){
-            $con=mysqli_connect('localhost', 'root', '', 'pisi');
+            $con=mysqli_connect('localhost', 'root', '', 'tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
@@ -48,7 +48,7 @@
         }
 
         public function getCartByUserId($id){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
@@ -67,7 +67,7 @@
         }
 
         public function getCartPrice($id){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
@@ -83,7 +83,7 @@
         }
 
         public function updateCartOrder($idOrder, $idUser){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
@@ -100,7 +100,7 @@
         }
 
         public function getCartElementsOfOrder($idOrder){
-            $con=mysqli_connect('localhost','root','','pisi');
+            $con=mysqli_connect('localhost','root','','tia_2_php');
 
             if(!$con){
                 die(' Please Check Your Connection');
