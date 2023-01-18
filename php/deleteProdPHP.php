@@ -32,13 +32,21 @@ if(isset($_POST['submitDelete']) || isset($_POST['submitDeleteFromProdPage']))
         $_SESSION['error'] = "Error description: " . mysqli_error($con);
         echo $_SESSION['error'];
     }
-}
+
+    $query="delete from cart
+    where id_prod = '{$_POST['deleteProdId']}' and id_order is null";
+
+    if(!mysqli_query($con, $query)){
+        $_SESSION['error'] = "Error description: " . mysqli_error($con);
+        echo $_SESSION['error'];
+    }
 
     if(isset($_POST['submitDeleteFromProdPage'])){
         header("Location:./../pages/categ.php?categ={$row['den']}");
     }else{
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
+}
 
     mysqli_close($con);
 

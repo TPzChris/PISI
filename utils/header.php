@@ -3,8 +3,9 @@
 <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
 <script src="./../js/header.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
   
 <?php
     require_once './../php/dto/OrderDTO.php';
@@ -40,13 +41,20 @@
             <?php
             
             $cartGateway = new CartGateway();
-            $cartNumber = $cartGateway->getCartNumber($_SESSION['idUser']);
+            $cartNumber = isset($_SESSION['idUser']) ? $cartGateway->getCartNumber($_SESSION['idUser']) : 0;
             ?>
             <li class="nav-item">
+                <?php if(isset($_SESSION['idUser'])){?>
                 <a id="shopBtn" class="dropdown-item" href="./../pages/cart.php">
                     <i class="fas fa-cart-shopping" style="color:white; font-size: 24px"></i>
                     <span class="fa-layers-counter"><?php echo $cartNumber; ?></span>
                 </a>
+                <?php }else{ ?>
+                <a class="dropdown-item" type="button" class="btn btn-lg btn-danger" data-bs-placement="left" data-bs-toggle="popover" data-bs-title="Acces nepermis" data-bs-content="Trebuie sa va autentificati pentru a accesa aceasta pagina">
+                    <i class="fas fa-cart-shopping" style="color:white; font-size: 24px"></i>
+                    <span class="fa-layers-counter"><?php echo $cartNumber; ?></span>
+                </a>
+                <?php } ?>
             </li>
             <?php if(!isset($_SESSION['idUser'])){?>
             <li class="nav-item">
@@ -95,5 +103,14 @@
         const data_value = $('#prods [value="' + value + '"]').data('value');
         document.getElementById("idProd").value = data_value;
     });     
+
+    
 </script>
+
+<script>
+    $(document).ready(function(){
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    })
+</script> 
 
