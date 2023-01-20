@@ -39,7 +39,7 @@ if(isset($_POST['submitUpdate']) || isset($_POST['submitUpdateFromProdPage']))
     
 }
     if(isset($_POST['submitUpdateFromProdPage'])){
-        header("Location:./../pages/product.php?prod={$_POST['updateProdDen']}");
+        header("Location:./../pages/product.php?prod={$_POST['updateProdId']}");
     }else{
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }

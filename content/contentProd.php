@@ -38,6 +38,7 @@ $row = null;
 if(isset($_GET['prod']))
 {
 
+
     if(isset($_SESSION['idUser'])){
         $extraQuery = ", (select ifnull(c.cant, 0) from cart c where c.id_prod = p.id_prod and c.id_user = {$_SESSION['idUser']} and c.id_order is null) as cant";
     }
@@ -52,6 +53,13 @@ if(isset($_GET['prod']))
     $result=mysqli_query($con,$query);
 
     $row = mysqli_fetch_assoc($result);
+
+
+    $query = "select den from categ where id_categ = (select categ_id from prod where id_prod = '{$_GET['prod']}')";
+
+    $result=mysqli_query($con,$query);
+
+    $categ = mysqli_fetch_assoc($result)['den'];
     
 }
 ?>
@@ -189,7 +197,7 @@ if(isset($_GET['prod']))
                           <input type="text" class="form-control" name="updateProdDesc" id="descProd" value="<?php echo $row['descriere']; ?>">
                           <input type="hidden" name="updateProdId" value="<?php echo $row['id_prod']; ?>">
                           <input type="hidden" name="updateProdImgType" id="imgTypeProdUpdate_<?php echo $row['id_prod']; ?>" value="<?php echo $row['imagine_content_type']; ?>">
-                          <input type="hidden" name="updateProdCateg" id="categProd" value="<?php echo $_GET['categ'] ?>">
+                          <input type="hidden" name="updateProdCateg" id="categProd" value="<?php echo $categ ?>">
                       </div>
                   </div>
                   <div class="modal-footer">
